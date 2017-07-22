@@ -10,42 +10,36 @@ import re
 import json
 import io
 
-# check whether current flight is already in the record
-def flightNumberReplication(flRepArr, flNum):
-    if flNum not in flRepArr:
-        flRepArr.append(flNum)
-        flRepArr[:] = flRepArr
-        return True
-    else:
-        return False
-
-dataArr = []
-day = 10
-repeat = int(input("number of days: "))
-
+def searching_element_to_click(elem, select):
+        ActionChains(browser).send_keys(Keys.PAGE_DOWN).perform()
+        time.sleep(2)   # wait for page scrolling
+        try:
+            print("click") # temp
+            browser.find_element_by_xpath(elem).click()
+            time.sleep(2)
+            browser.find_element_by_xpath(select).click()
+        except:
+            print("Can't find /'Show/'")
+            pass
+repeat = 2 # temp
 for i in range(repeat):
-    path_to_chromedriver = "F:\workspace\chromedriver.exe"
-    browser = webdriver.Chrome(executable_path=path_to_chromedriver)
-
-    day += i
-    url = 'https://www.united.com/ual/en/us/flight-search/book-a-flight/results/rev?f=ORD&t=ATL&d=2017-07-' + str(day) + '&tt=1&sc=7&px=1&taxng=1&idx=1'
-
+    browser = webdriver.Chrome('/Users/xyz/git/Scraping/Scraping/chromedriver')
+    url = 'http://stairways.org/Join/Find-a-Member'
     browser.get(url)
-    time.sleep(10)
+    time.sleep(15)
+    # use this var to track the "Show" selection
+    page = 1
 
-    # expand to see all flights
+    # finding 'Show' element to slect 1-46, 50-100, etc
+    show = '//*[@id="idPagingData"]/select'
+    select = ['//*[@id="idPagingData"]/select/option[1]', '//*[@id="idPagingData"]/select/option[2]', '//*[@id="idPagingData"]/select/option[3]'
+    searching_element_to_click(show, select[page])
+    time.sleep(15)
 
-    expand = browser.find_element_by_xpath('//*[@id="fl-results-pagerShowAll"]')
-    ActionChains(browser).move_to_element(expand).send_keys(Keys.PAGE_DOWN).perform()
-    ActionChains(browser).move_to_element(expand).send_keys(Keys.PAGE_DOWN).perform()
-    time.sleep(2)   # wait for page scrolling
-    try:
-        browser.find_element_by_xpath('//*[@id="fl-results-pagerShowAll"]').click()
-    except:
-        print("No show all")
-        pass
+    # wait for page to completely load
+    if page != 1:
+        time.sleep(15)
 
-    time.sleep(5)   # load all the available planes
     visitedSeatIDArr = []
     allSeatsToCountArr = []
     occupiedSeatsToCountArr = []

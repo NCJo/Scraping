@@ -11,15 +11,14 @@ import json
 import io
 
 def searching_element_to_click(elem, select):
-        ActionChains(browser).send_keys(Keys.PAGE_DOWN).perform()
-        time.sleep(2)   # wait for page scrolling
         try:
             print("click") # temp
             browser.find_element_by_xpath(elem).click()
-            time.sleep(2)
+            time.sleep(5)
+            browser.find_element_by_xpath(select).click()
             browser.find_element_by_xpath(select).click()
         except:
-            print("Can't find /'Show/'")
+            print("Can't find 'Show'")
             pass
 
 
@@ -156,15 +155,13 @@ for i in range(numbCompanies):
     try:
         tags = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl11_BulletedList923216"]')
         print(tags.text)
-        tags_filter = re.findall()
+        tags_filter = re.findall(r',?([^,]+)(?:,|\n)', tags.text)
+        print(tags_filter)
         tags_for_json = tags_filter
     except:
         print("No Business Tag")
         pass
     #################################################
-
-
-    # click detailed view
 
     time.sleep(2)
 
@@ -229,9 +226,6 @@ for i in range(numbCompanies):
                 }
                 dataArr.append(data)
 
-                allSeatsToCountArr = []
-                occupiedSeatsToCountArr = []
-                time.sleep(2)
             except:
                 print("No data to record")
                 pass
@@ -253,40 +247,5 @@ for i in range(numbCompanies):
 
 
 """
-# type of airplane
-planeType = browser.find_elements_by_class_name('equipment-type')
-print('planeType', planeType[-1].text)
 
-# check day: a[4=today, 5=tomorrow], div[1] = day (Thu 6/20)
-nextDay = browser.find_element_by_xpath('//*[@id="farewheel-placeholder"]/div/div/div/a[4]/div[1]').text
-print(nextDay)
-
-# WORKING: find all seats in a plane
-seats = browser.find_elements_by_xpath('//*[contains(@id, "spanSeat")]/span')
-empty = 0
-occupied = 0
-for i in seats:
-    #print(i.text)
-    if i.text == "Occupied":
-        occupied += 1
-    else:
-        empty += 1
-print("Empty = ", empty, " || Occupied = ", occupied)
-
-# find single seat
-# seat = browser.find_element_by_xpath('//*[@id="spanSeat21D"]/span')
-# print(seat.text)
-
-# find all seats in a plane
-# seats = browser.find_elements_by_xpath('//*[contains(@id, "spanSeat")]/span')
-
-# click element outside webview
-# ActionChains(browser).move_to_element(seatLink).click().perform()
-
-# instead of using time.sleep()
-# test = WebDriverWait(browser, 10).until(EC.visibility_of(seatLink))
-# test.click()
-
-# specifically get rid of the word "flight"
-# flNum = re.finadall(r'\b(?!\FLIGHT\b)\w)+\b', flightNumbers.pop(0).text)
 """

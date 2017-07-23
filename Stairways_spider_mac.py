@@ -21,118 +21,152 @@ def searching_element_to_click(elem, select):
         except:
             print("Can't find /'Show/'")
             pass
-repeat = 3
-for i in range(repeat):
-    # browser = webdriver.Chrome('/Users/xyz/git/Scraping/Scraping/chromedriver')
-    # url = 'http://stairways.org/Join/Find-a-Member'
-    # browser.get(url)
-    # time.sleep(10)
-    #
-    # # use this var to track the "Show" selection
-    # page = 0
-    #
-    # # finding 'Show' element to slect 1-46, 50-100, etc
-    # show = '//*[@id="idPagingData"]/select'
-    # select = ['//*[@id="idPagingData"]/select/option[1]', '//*[@id="idPagingData"]/select/option[2]', '//*[@id="idPagingData"]/select/option[3]']
-    # searching_element_to_click(show, select[page])
-    # time.sleep(10)
-    # for a in browser.find_elements_by_xpath('//*[@title="Go to member details"]'):
-    #    # need "get attribute" to get the actual content
-    #    print(a.get_attribute('href'))
-    #
-    # # wait for page to completely load
-    # if page != 0:
-    #     time.sleep(15)
-    #
-    # # variables to keep data
-    # visitedSeatIDArr = []
-    # allSeatsToCountArr = []
-    # occupiedSeatsToCountArr = []
-    # visitedFlightReplicate = []
-    # # ActionChains(browser).send_keys(Keys.HOME).perform() temp
-    #
 
+
+main_page_repeat = 3
+for i in range(main_page_repeat):
     browser = webdriver.Chrome('/Users/xyz/git/Scraping/Scraping/chromedriver')
-    url = 'http://stairways.org/Sys/PublicProfile/3919587/357047'
+    url = 'http://stairways.org/Join/Find-a-Member'
     browser.get(url)
     time.sleep(10)
 
     # use this var to track the "Show" selection
     page = 0
 
-    # Organization ###################################
-    organization = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl00_TextBoxLabel887512"]')
-    print(organization.text)
-    ##################################################
+    # finding 'Show' element to slect 1-46, 50-100, etc
+    show = '//*[@id="idPagingData"]/select'
+    select = ['//*[@id="idPagingData"]/select/option[1]', '//*[@id="idPagingData"]/select/option[2]', '//*[@id="idPagingData"]/select/option[3]']
+    searching_element_to_click(show, select[page])
+    time.sleep(10)
 
-    # Phone Number ###################################
-    phone = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl01_TextBoxLabel887514"]')
-    print(phone.text)
-    ##################################################
-
-    # Address ########################################
-    address = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl02_TextBoxLabel7373682"]')
-    print(address.text)
-    ##################################################
-
-    # City ###########################################
-    city = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl03_TextBoxLabel7373683"]')
-    print(city.text)
-    ##################################################
-
-    # Province #######################################
-    province = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl04_DropDownLabel7373684"]')
-    print(province.text)
-
-    # Postal ########################################
-    postal = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl05_TextBoxLabel7373685"]')
-    print(postal.text)
-    #################################################
-
-    # Country #######################################
-    country = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_DropDownLabel7373686"]')
-    print(country.text)
-    #################################################
-
-    # Website #######################################
-    webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_TextBoxLabel887519"]/a')
-    print(webCompany.text)
-    #################################################
-
-    # Directory Listing text ########################
-    directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl09_TextBoxLabel1182880"]')
-    print(directory.text)
-    #################################################
-
-    # Business Tags #################################
-    tags = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl11_BulletedList923216"]')
-    print(tags.text)
-    #################################################
+    # find all links in the main page
+    all_companies_links = []
+    for a in browser.find_elements_by_xpath('//*[@title="Go to member details"]'):
+       # need "get attribute" to get the actual content
+       print(a.get_attribute('href'))
+       all_companies_links.append(a.get_attribute('href'))
 
     # wait for page to completely load
     if page != 0:
         time.sleep(15)
 
-    # variables to keep data
-    visitedSeatIDArr = []
-    allSeatsToCountArr = []
-    occupiedSeatsToCountArr = []
-    visitedFlightReplicate = []
-    # ActionChains(browser).send_keys(Keys.HOME).perform() temp
+# close first session
+browser.close()
 
+# set number of companies infos
+numbCompanies = len(numbCompanies)
+for i in range(numbCompanies):
+    browser = webdriver.Chrome('/Users/xyz/git/Scraping/Scraping/chromedriver')
+    url = all_companies_links[i]
+    browser.get(url)
+    time.sleep(10)
+
+    ###############################################################################
+    # Organization ###################################
+    try:
+        organization = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl00_TextBoxLabel887512"]')
+        print(organization.text)
+        organization_for_json = organization.text
+    except:
+        print("No Organization")
+        pass
+    ##################################################
+
+    # Phone Number ###################################
+    try:
+        phone = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl01_TextBoxLabel887514"]')
+        print(phone.text)
+        phone_for_json = phone.text
+    except:
+        print("No Phone Number")
+        pass
+    ##################################################
+
+    # Address ########################################
+    try:
+        address = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl02_TextBoxLabel7373682"]')
+        print(address.text)
+        address_for_json = address.text
+    except:
+        print("No Address")
+        pass
+    ##################################################
+
+    # City ###########################################
+    try:
+        city = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl03_TextBoxLabel7373683"]')
+        print(city.text)
+        city_for_json = city.text
+    except:
+        print("No City")
+        pass
+    ##################################################
+
+    # Province #######################################
+    try:
+        province = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl04_DropDownLabel7373684"]')
+        print(province.text)
+        province_for_json = province
+    except:
+        print("No Province")
+        pass
+    #################################################
+
+    # Postal ########################################
+    try:
+        postal = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl05_TextBoxLabel7373685"]')
+        print(postal.text)
+        postal_for_json = postal
+    except:
+        print("No Postal")
+        pass
+    #################################################
+
+    # Country #######################################
+    try:
+        country = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_DropDownLabel7373686"]')
+        print(country.text)
+        country_for_json = country
+    except:
+        print("No Country")
+        pass
+    #################################################
+
+    # Website #######################################
+    try:
+        webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_TextBoxLabel887519"]/a')
+        print(webCompany.text)
+        URL_for_json = webCompany
+    except:
+        print("No Website")
+        pass
+    #################################################
+
+    # Directory Listing text ########################
+    try:
+        directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl09_TextBoxLabel1182880"]')
+        print(directory.text)
+        directory_for_json = directory
+    except:
+        print("No Directory")
+        pass
+    #################################################
+
+    # Business Tags #################################
+    try:
+        tags = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl11_BulletedList923216"]')
+        print(tags.text)
+        tags_filter = re.findall()
+        tags_for_json = tags_filter
+    except:
+        print("No Business Tag")
+        pass
+    #################################################
 
 
     # click detailed view
-    browser.find_element_by_xpath('//*[@id="fl-search-header-wrap"]/div[2]/div[1]/div/div/label[2]').click()
+
     time.sleep(2)
-    # get flight numbers
-    flightNumbers = browser.find_elements_by_class_name('segment-flight-number')
-    # get total number of flights
-    totalNumOfFlights = browser.find_elements_by_class_name('flight-block-fares-container')
-    # get number of connections
-    flightConnections = browser.find_elements_by_class_name('flight-connection-container')
-    # get all flights' seat map links
-    allSeatLinks = browser.find_elements_by_class_name('toggle-flight-block-seats')
 
     for seatLink in allSeatLinks:
         # wait until element is visible
@@ -180,17 +214,18 @@ for i in range(repeat):
             occupiedSeatsJSON = len(occupiedSeatsToCountArr)
             emptySeatsJSON = len(allSeatsToCountArr) - len(occupiedSeatsToCountArr)
 
-            print("Empty = ", len(allSeatsToCountArr) - len(occupiedSeatsToCountArr), " || Occupied = ", len(occupiedSeatsToCountArr))
-            print("")
-
+            # recording all the company informations ###########################
             try:
                 data = {
-                    'a. flight number': flNumJSON,
-                    'b. model': planeTypeJSON,
-                    'c. total seats': totalSeatsJSON,
-                    'd. occupied seats': occupiedSeatsJSON,
-                    'e. empty seats': emptySeatsJSON,
-                    'f. number of connection flights': numOfFlightConnectionJSON
+                    'a. Company Name': organization_for_json,
+                    'b. Phone Number': phone_for_json,
+                    'c. Address': address_for_json,
+                    'd. City': city_for_json,
+                    'e. Province/State': province_for_json,
+                    'f. Postal Code': postal_for_json,
+                    'g. Country': country_for_json,
+                    'h. Website': URL_for_json,
+                    'i. Company Information': tags_for_json
                 }
                 dataArr.append(data)
 
@@ -206,28 +241,13 @@ for i in range(repeat):
             print("")
             pass
 
-        # # all the calculations for seats
-        # totalSeatsJSON = len(allSeatsToCountArr)
-        # occupiedSeatsJSON = len(occupiedSeatsToCountArr)
-        # emptySeatsJSON = len(allSeatsToCountArr) - len(occupiedSeatsToCountArr)
-        #
-        # print("Empty = ", len(allSeatsToCountArr) - len(occupiedSeatsToCountArr), " || Occupied = ", len(occupiedSeatsToCountArr))
-        # print("")
-
-        seatLink.click()
-        time.sleep(1)
-
-
-    with io.open('stairways_spider_result.json', 'a', encoding='utf8') as outfile:
+    with open('stairways_spider_result.json', 'a', encoding='utf8') as outfile:
         str_ = json.dumps(dataArr,
                           indent=4, sort_keys=True,
                           separators=(',', ': '), ensure_ascii=False)
         outfile.write(str_)
+            ####################################################################
 
-    allSeats = []
-    allOccupiedSeats = []
-    dataArr = []
-    visitedFlightReplicate = []
     browser.close()
 
 

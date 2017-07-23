@@ -5,57 +5,61 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 import time
 import re
 import json
 import io
 
-def searching_element_to_click(elem, select):
-        try:
-            print("click") # temp
-            browser.find_element_by_xpath(elem).click()
-            time.sleep(5)
-            browser.find_element_by_xpath(select).click()
-            browser.find_element_by_xpath(select).click()
-        except:
-            print("Can't find 'Show'")
-            pass
+
+def searching_element_to_click(elem, sel):
+        time.sleep(2)
+        browser.find_element_by_xpath(elem).click()
+        time.sleep(5)
+        browser.find_element_by_xpath(sel).click()
+        time.sleep(5)
 
 
+browser = webdriver.Chrome('/Users/xyz/git/Scraping/Scraping/chromedriver')
+url = 'http://stairways.org/Join/Find-a-Member'
+time.sleep(2)
+browser.get(url)
+time.sleep(10)
 main_page_repeat = 3
+
+# use this var to track the "Show" selection
+page = 0
+
+# find all links in the main page
+all_companies_links = []
+
 for i in range(main_page_repeat):
-    browser = webdriver.Chrome('/Users/xyz/git/Scraping/Scraping/chromedriver')
-    url = 'http://stairways.org/Join/Find-a-Member'
-    browser.get(url)
-    time.sleep(10)
-
-    # use this var to track the "Show" selection
-    page = 0
-
     # finding 'Show' element to slect 1-46, 50-100, etc
     show = '//*[@id="idPagingData"]/select'
-    select = ['//*[@id="idPagingData"]/select/option[1]', '//*[@id="idPagingData"]/select/option[2]', '//*[@id="idPagingData"]/select/option[3]']
-    searching_element_to_click(show, select[page])
-    time.sleep(10)
+    select = ['STUB', '//*[@id="idPagingData"]/select/option[2]', '//*[@id="idPagingData"]/select/option[3]']
 
-    # find all links in the main page
-    all_companies_links = []
+    # this to prevent clicking error
+    if page != 0:
+        selected_page = select[page]
+        searching_element_to_click(show, selected_page)
+
     for a in browser.find_elements_by_xpath('//*[@title="Go to member details"]'):
        # need "get attribute" to get the actual content
        print(a.get_attribute('href'))
        all_companies_links.append(a.get_attribute('href'))
 
-    # wait for page to completely load
-    if page != 0:
-        time.sleep(15)
+    page += 1
 
 # close first session
-browser.close()
+browser.quit()
+print("len of array is " + str(len(all_companies_links))) # temp
 
 # set number of companies infos
-numbCompanies = len(numbCompanies)
+numbCompanies = len(all_companies_links)
 for i in range(numbCompanies):
+    #TODO: move this out of for loop
     browser = webdriver.Chrome('/Users/xyz/git/Scraping/Scraping/chromedriver')
+
     url = all_companies_links[i]
     browser.get(url)
     time.sleep(10)

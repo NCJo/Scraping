@@ -15,16 +15,16 @@ import io
 def searching_element_to_click(elem, sel):
         time.sleep(2)
         browser.find_element_by_xpath(elem).click()
-        time.sleep(5)
+        time.sleep(3)
         browser.find_element_by_xpath(sel).click()
-        time.sleep(5)
+        time.sleep(3)
 
 
 browser = webdriver.Chrome('/Users/xyz/git/Scraping/Scraping/chromedriver')
 url = 'http://stairways.org/Join/Find-a-Member'
 time.sleep(2)
 browser.get(url)
-time.sleep(10)
+time.sleep(7)
 main_page_repeat = 3
 
 # use this var to track the "Show" selection
@@ -63,7 +63,6 @@ for i in range(numbCompanies):
 
     time.sleep(5)
     url = all_companies_links[i]
-    time.sleep(5)
     browser.get(url)
     time.sleep(10)
 
@@ -174,27 +173,22 @@ for i in range(numbCompanies):
     try:
         try:
             directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_TextBoxLabel1182880"]')
-            print(directory.text)
-            directory_for_json = str(directory.text)
         except:
             try:
                 directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl08_TextBoxLabel1182880"]')
-                print(directory.text)
-                directory_for_json = str(directory.text)
             except:
                 try:
                     directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl09_TextBoxLabel1182880"]')
-                    print(directory.text)
-                    directory_for_json = str(directory.text)
                 except:
                     try:
                         directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl10_TextBoxLabel1182880"]')
-                        directory_filter = re.findall(r"[\w\t ]+", directory.text)
-                        print(directory_filter)
-                        " ".join(directory_filter)
-                        directory_for_json = str(directory_filter)
                     except:
                         pass
+
+        directory_filter = directory.text
+        directory_filter = directory_filter.replace("\n", " ")
+        print(directory_filter)
+        directory_for_json = str(directory_filter)
     except:
         print("No Directory")
         directory_for_json = "No Directory"
@@ -225,11 +219,9 @@ for i in range(numbCompanies):
                                     tags = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl13_BulletedList923216"]')
                                 except:
                                     pass
-
-        print(tags.text)
-        tags_filter = re.findall(r"[\w\t ]+", tags.text)
+        tags_filter = tags.text
+        tags_filter = tags_filter.replace("\n", " ")
         print(tags_filter)
-        " ".join(tags_filter)
         tags_for_json = str(tags_filter)
     except:
         print("No Business Tag")
@@ -269,10 +261,11 @@ for i in range(numbCompanies):
         outfile.write(str_)
         time.sleep(3)
     ################################################
-    cancel = input("Stop? Y/N ")
-    print("")
-    if cancel == "y":
-        browser.quit()
+    # temp developing
+    # cancel = input("Stop? Y/N ")
+    # print("")
+    # if cancel == "y":
+    #     browser.quit()
 browser.quit()
 
 

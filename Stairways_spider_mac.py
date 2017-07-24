@@ -60,12 +60,12 @@ browser = webdriver.Chrome('/Users/xyz/git/Scraping/Scraping/chromedriver')
 
 for i in range(numbCompanies):
 
-
-    time.sleep(5)
+    time.sleep(4)
     url = all_companies_links[i]
     browser.get(url)
     time.sleep(10)
-    print("Company No.: " + i)
+    print("Company No.: " + str(i+1))
+    print("Index of: " + str(i))
     # Organization ###################################
     try:
         organization = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl00_TextBoxLabel887512"]')
@@ -262,22 +262,22 @@ for i in range(numbCompanies):
     # Website #######################################
     try:
         try:
-            webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl05_TextBoxLabel887519"]/a')
+            webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl05_TextBoxLabel887519"]')
         except:
             try:
-                webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_TextBoxLabel887519"]/a')
+                webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_TextBoxLabel887519"]')
             except:
                 try:
-                    webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_TextBoxLabel887519"]/a')
+                    webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_TextBoxLabel887519"]')
                 except:
                     try:
-                        webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl08_TextBoxLabel887519"]/a')
+                        webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl08_TextBoxLabel887519"]')
                     except:
                         try:
-                            webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl09_TextBoxLabel887519"]/a')
+                            webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl09_TextBoxLabel887519"]')
                         except:
                             try:
-                                webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl10_TextBoxLabel887519"]/a')
+                                webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl10_TextBoxLabel887519"]')
                             except:
                                 pass
         print(webCompany.text)
@@ -370,6 +370,7 @@ for i in range(numbCompanies):
             'i. Directory Listing Text': directory_for_json,
             'j. Company Tags': tags_for_json,
             'k. Source URL': str(all_companies_links[i])
+            'l. Company no.': str(i+1)
         }
         dataArr.append(data)
         for j in dataArr:
@@ -397,5 +398,5 @@ browser.quit()
 
 
 """
-
+TODO: add array of all companies' URL for the future references
 """

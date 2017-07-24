@@ -369,7 +369,7 @@ for i in range(numbCompanies):
             'h. Company Website': URL_for_json,
             'i. Directory Listing Text': directory_for_json,
             'j. Company Tags': tags_for_json,
-            'k. Source URL': str(all_companies_links[i])
+            'k. Source URL': str(all_companies_links[i]),
             'l. Company no.': str(i+1)
         }
         dataArr.append(data)

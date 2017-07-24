@@ -52,26 +52,29 @@ for i in range(main_page_repeat):
 
 # close first session
 browser.quit()
-print("len of array is " + str(len(all_companies_links))) # temp
+print("Total number of companies: " + str(len(all_companies_links))) # temp
 
-# set number of companies infos
+# total number of companies infos
 numbCompanies = len(all_companies_links)
-for i in range(numbCompanies):
-    #TODO: move this out of for loop
-    browser = webdriver.Chrome('/Users/xyz/git/Scraping/Scraping/chromedriver')
+browser = webdriver.Chrome('/Users/xyz/git/Scraping/Scraping/chromedriver')
 
+for i in range(numbCompanies):
+
+
+    time.sleep(5)
     url = all_companies_links[i]
+    time.sleep(5)
     browser.get(url)
     time.sleep(10)
 
-    ###############################################################################
     # Organization ###################################
     try:
         organization = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl00_TextBoxLabel887512"]')
         print(organization.text)
-        organization_for_json = organization.text
+        organization_for_json = str(organization.text)
     except:
         print("No Organization")
+        organization_for_json = "No Organization"
         pass
     ##################################################
 
@@ -79,9 +82,10 @@ for i in range(numbCompanies):
     try:
         phone = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl01_TextBoxLabel887514"]')
         print(phone.text)
-        phone_for_json = phone.text
+        phone_for_json = str(phone.text)
     except:
         print("No Phone Number")
+        phone_for_json = "No Phone Number"
         pass
     ##################################################
 
@@ -89,9 +93,10 @@ for i in range(numbCompanies):
     try:
         address = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl02_TextBoxLabel7373682"]')
         print(address.text)
-        address_for_json = address.text
+        address_for_json = str(address.text)
     except:
         print("No Address")
+        address_for_json = "No Address"
         pass
     ##################################################
 
@@ -99,9 +104,10 @@ for i in range(numbCompanies):
     try:
         city = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl03_TextBoxLabel7373683"]')
         print(city.text)
-        city_for_json = city.text
+        city_for_json = str(city.text)
     except:
         print("No City")
+        city_for_json = "No City"
         pass
     ##################################################
 
@@ -109,9 +115,10 @@ for i in range(numbCompanies):
     try:
         province = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl04_DropDownLabel7373684"]')
         print(province.text)
-        province_for_json = province
+        province_for_json = str(province.text)
     except:
         print("No Province")
+        province_for_json = "No Province"
         pass
     #################################################
 
@@ -119,9 +126,10 @@ for i in range(numbCompanies):
     try:
         postal = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl05_TextBoxLabel7373685"]')
         print(postal.text)
-        postal_for_json = postal
+        postal_for_json = str(postal.text)
     except:
         print("No Postal")
+        postal_for_json = "No Postal"
         pass
     #################################################
 
@@ -129,124 +137,143 @@ for i in range(numbCompanies):
     try:
         country = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_DropDownLabel7373686"]')
         print(country.text)
-        country_for_json = country
+        country_for_json = str(country.text)
     except:
         print("No Country")
+        country_for_json = "No Country"
         pass
     #################################################
 
     # Website #######################################
     try:
-        webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_TextBoxLabel887519"]/a')
+        try:
+            webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl05_TextBoxLabel887519"]/a')
+        except:
+            try:
+                webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_TextBoxLabel887519"]/a')
+            except:
+                try:
+                    webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_TextBoxLabel887519"]/a')
+                except:
+                    try:
+                        webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl08_TextBoxLabel887519"]/a')
+                    except:
+                        try:
+                            webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl09_TextBoxLabel887519"]/a')
+                        except:
+                            pass
         print(webCompany.text)
-        URL_for_json = webCompany
+        URL_for_json = str(webCompany.text)
     except:
         print("No Website")
+        URL_for_json = "No Website"
         pass
     #################################################
 
     # Directory Listing text ########################
     try:
-        directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl09_TextBoxLabel1182880"]')
-        print(directory.text)
-        directory_for_json = directory
+        try:
+            directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_TextBoxLabel1182880"]')
+            print(directory.text)
+            directory_for_json = str(directory.text)
+        except:
+            try:
+                directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl08_TextBoxLabel1182880"]')
+                print(directory.text)
+                directory_for_json = str(directory.text)
+            except:
+                try:
+                    directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl09_TextBoxLabel1182880"]')
+                    print(directory.text)
+                    directory_for_json = str(directory.text)
+                except:
+                    try:
+                        directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl10_TextBoxLabel1182880"]')
+                        directory_filter = re.findall(r"[\w\t ]+", directory.text)
+                        print(directory_filter)
+                        " ".join(directory_filter)
+                        directory_for_json = str(directory_filter)
+                    except:
+                        pass
     except:
         print("No Directory")
+        directory_for_json = "No Directory"
         pass
     #################################################
 
     # Business Tags #################################
     try:
-        tags = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl11_BulletedList923216"]')
+        try:
+            tags = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_BulletedList923216"]')
+        except:
+            try:
+                tags = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl08_BulletedList923216"]')
+            except:
+                try:
+                    tags = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl09_BulletedList923216"]')
+                except:
+                    try:
+                        tags = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl10_BulletedList923216"]')
+                    except:
+                        try:
+                            tags = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl11_BulletedList923216"]')
+                        except:
+                            try:
+                                tags = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl12_BulletedList923216"]')
+                            except:
+                                try:
+                                    tags = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl13_BulletedList923216"]')
+                                except:
+                                    pass
+
         print(tags.text)
-        tags_filter = re.findall(r',?([^,]+)(?:,|\n)', tags.text)
+        tags_filter = re.findall(r"[\w\t ]+", tags.text)
         print(tags_filter)
-        tags_for_json = tags_filter
+        " ".join(tags_filter)
+        tags_for_json = str(tags_filter)
     except:
         print("No Business Tag")
+        tags_for_json = "No Business Tags"
         pass
     #################################################
+    print("Start JSON...") # temp
+    # recording all the company informations ########
+    dataArr = []
+    try:
+        data = {
+            'a. Company Name': organization_for_json,
+            'b. Phone Number': phone_for_json,
+            'c. Address': address_for_json,
+            'd. City': city_for_json,
+            'e. Province': province_for_json,
+            'f. Postal Code': postal_for_json,
+            'g. Country': country_for_json,
+            'h. Company Website': URL_for_json,
+            'i. Directory Listing Text': directory_for_json,
+            'j. Company Tags': tags_for_json,
+            'k. Source URL': str(all_companies_links[i])
+        }
+        dataArr.append(data)
+        for j in dataArr:
+            print(dataArr[j])
+
+    except:
+        print("No data to record")
+        pass
 
     time.sleep(2)
-
-    for seatLink in allSeatLinks:
-        # wait until element is visible
-        visible = WebDriverWait(browser, 10).until(EC.visibility_of(seatLink))
-        browser.execute_script("return arguments[0].scrollIntoView();", seatLink)
-        browser.execute_script("window.scrollBy(0, -150);")
-        visible.click()
-        time.sleep(5)
-        # plane type and flight number (read after click on "Seats")
-        planeType = browser.find_elements_by_class_name('equipment-type')
-        time.sleep(2)
-
-        # match read connection flights to return correct flight numbers
-        connection = re.findall(r'\b\d+\b',  flightConnections.pop(0).text)
-        if len(connection) != 0:
-            numOfConnection = int(connection.pop())
-            numOfFlightConnectionJSON = numOfConnection
-            flNum = flightNumbers.pop(0).text
-            flNumJSON = flNum[7:]
-            print(flNum[7:])
-            for i in range(numOfConnection):
-                flightNumbers.pop(0)
-        else:
-            numOfFlightConnectionJSON = 0
-            flNum = flightNumbers.pop(0).text
-            flNumJSON = flNum[7:]
-            print(flNum[7:])
-        # need try statement for plane type
-        planeTypeJSON = planeType[-1].text
-        print(planeType[-1].text)
-        time.sleep(1)
-        allSeats = browser.find_elements_by_class_name('seat')
-        allOccupiedSeats = browser.find_elements_by_class_name('occupied')
-        if flightNumberReplication(visitedFlightReplicate, flNum):
-            for allSeatID in allSeats:
-                if allSeatID._id not in visitedSeatIDArr:
-                    visitedSeatIDArr.append(allSeatID._id)
-                    allSeatsToCountArr.append(allSeatID)
-            for occupiedSeatID in allOccupiedSeats:
-                if occupiedSeatID._id not in visitedSeatIDArr:
-                    visitedSeatIDArr.append(occupiedSeatID._id)
-                    occupiedSeatsToCountArr.append(occupiedSeatID)
-            # all the calculations for seats
-            totalSeatsJSON = len(allSeatsToCountArr)
-            occupiedSeatsJSON = len(occupiedSeatsToCountArr)
-            emptySeatsJSON = len(allSeatsToCountArr) - len(occupiedSeatsToCountArr)
-
-            # recording all the company informations ###########################
-            try:
-                data = {
-                    'a. Company Name': organization_for_json,
-                    'b. Phone Number': phone_for_json,
-                    'c. Address': address_for_json,
-                    'd. City': city_for_json,
-                    'e. Province/State': province_for_json,
-                    'f. Postal Code': postal_for_json,
-                    'g. Country': country_for_json,
-                    'h. Website': URL_for_json,
-                    'i. Company Information': tags_for_json
-                }
-                dataArr.append(data)
-
-            except:
-                print("No data to record")
-                pass
-
-        else:
-            print("Replicate Flight: not record")
-            print("")
-            pass
-
     with open('stairways_spider_result.json', 'a', encoding='utf8') as outfile:
         str_ = json.dumps(dataArr,
                           indent=4, sort_keys=True,
                           separators=(',', ': '), ensure_ascii=False)
         outfile.write(str_)
-            ####################################################################
-
-    browser.close()
+        time.sleep(3)
+    ################################################
+    cancel = input("Stop? Y/N ")
+    print("")
+    if cancel == "y":
+        browser.quit()
+browser.quit()
 
 
 

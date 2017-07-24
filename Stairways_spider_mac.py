@@ -65,7 +65,7 @@ for i in range(numbCompanies):
     url = all_companies_links[i]
     browser.get(url)
     time.sleep(10)
-
+    print("Company No.: " + i)
     # Organization ###################################
     try:
         organization = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl00_TextBoxLabel887512"]')
@@ -79,18 +79,59 @@ for i in range(numbCompanies):
 
     # Phone Number ###################################
     try:
-        phone = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl01_TextBoxLabel887514"]')
+        try:
+            phone = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl01_TextBoxLabel887514"]')
+        except:
+            try:
+                phone = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl02_TextBoxLabel887514"]')
+            except:
+                try:
+                    phone = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl03_TextBoxLabel887514"]')
+                except:
+                    try:
+                        phone = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl04_TextBoxLabel887514"]')
+                    except:
+                        try:
+                            phone = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl05_TextBoxLabel887514"]')
+                        except:
+                            try:
+                                phone = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_TextBoxLabel887514"]')
+                            except:
+                                try:
+                                    phone = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_TextBoxLabel887514"]')
+                                except:
+                                    pass
+
         print(phone.text)
         phone_for_json = str(phone.text)
     except:
         print("No Phone Number")
         phone_for_json = "No Phone Number"
         pass
+
     ##################################################
 
     # Address ########################################
     try:
-        address = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl02_TextBoxLabel7373682"]')
+        try:
+            address = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl02_TextBoxLabel7373682"]')
+        except:
+            try:
+                address = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl03_TextBoxLabel7373682"]')
+            except:
+                try:
+                    address = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl04_TextBoxLabel7373682"]')
+                except:
+                    try:
+                        address = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl05_TextBoxLabel7373682"]')
+                    except:
+                        try:
+                            address = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_TextBoxLabel7373682"]')
+                        except:
+                            try:
+                                address = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl01_TextBoxLabel7373682"]')
+                            except:
+                                pass
         print(address.text)
         address_for_json = str(address.text)
     except:
@@ -101,7 +142,28 @@ for i in range(numbCompanies):
 
     # City ###########################################
     try:
-        city = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl03_TextBoxLabel7373683"]')
+        try:
+            city = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl03_TextBoxLabel7373683"]')
+        except:
+            try:
+                city = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl02_TextBoxLabel7373683"]')
+            except:
+                try:
+                    city = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl04_TextBoxLabel7373683"]')
+                except:
+                    try:
+                        city = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl05_TextBoxLabel7373683"]')
+                    except:
+                        try:
+                            city = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_TextBoxLabel7373683"]')
+                        except:
+                            try:
+                                city = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_TextBoxLabel7373683"]')
+                            except:
+                                try:
+                                    city = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl08_TextBoxLabel7373683"]')
+                                except:
+                                    pass
         print(city.text)
         city_for_json = str(city.text)
     except:
@@ -112,7 +174,25 @@ for i in range(numbCompanies):
 
     # Province #######################################
     try:
-        province = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl04_DropDownLabel7373684"]')
+        try:
+            province = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl04_DropDownLabel7373684"]')
+        except:
+            try:
+                province = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl05_DropDownLabel7373684"]')
+            except:
+                try:
+                    province = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_DropDownLabel7373684"]')
+                except:
+                    try:
+                        province = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl03_DropDownLabel7373684"]')
+                    except:
+                        try:
+                            province = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_DropDownLabel7373684"]')
+                        except:
+                            try:
+                                province = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl08_DropDownLabel7373684"]')
+                            except:
+                                pass
         print(province.text)
         province_for_json = str(province.text)
     except:
@@ -123,7 +203,25 @@ for i in range(numbCompanies):
 
     # Postal ########################################
     try:
-        postal = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl05_TextBoxLabel7373685"]')
+        try:
+            postal = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl05_TextBoxLabel7373685"]')
+        except:
+            try:
+                postal = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl03_TextBoxLabel7373685"]')
+            except:
+                try:
+                    postal = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl04_TextBoxLabel7373685"]')
+                except:
+                    try:
+                        postal = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_TextBoxLabel7373685"]')
+                    except:
+                        try:
+                            postal = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_TextBoxLabel7373685"]')
+                        except:
+                            try:
+                                postal = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl08_TextBoxLabel7373685"]')
+                            except:
+                                pass
         print(postal.text)
         postal_for_json = str(postal.text)
     except:
@@ -134,7 +232,25 @@ for i in range(numbCompanies):
 
     # Country #######################################
     try:
-        country = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_DropDownLabel7373686"]')
+        try:
+            country = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_DropDownLabel7373686"]')
+        except:
+            try:
+                country = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl05_DropDownLabel7373686"]')
+            except:
+                try:
+                    country = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl04_DropDownLabel7373686"]')
+                except:
+                    try:
+                        country = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl07_DropDownLabel7373686"]')
+                    except:
+                        try:
+                            country = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl08_DropDownLabel7373686"]')
+                        except:
+                            try:
+                                country = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl09_DropDownLabel7373686"]')
+                            except:
+                                pass
         print(country.text)
         country_for_json = str(country.text)
     except:
@@ -160,7 +276,10 @@ for i in range(numbCompanies):
                         try:
                             webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl09_TextBoxLabel887519"]/a')
                         except:
-                            pass
+                            try:
+                                webCompany = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl10_TextBoxLabel887519"]/a')
+                            except:
+                                pass
         print(webCompany.text)
         URL_for_json = str(webCompany.text)
     except:
@@ -183,7 +302,14 @@ for i in range(numbCompanies):
                     try:
                         directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl10_TextBoxLabel1182880"]')
                     except:
-                        pass
+                        try:
+                            directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl06_TextBoxLabel1182880"]')
+                        except:
+                            try:
+                                directory = browser.find_element_by_xpath('//*[@id="FunctionalBlock1_ctl00_ctl00_memberProfile_MemberForm_memberFormRepeater_ctl11_TextBoxLabel1182880"]')
+                            except:
+                                pass
+
 
         directory_filter = directory.text
         directory_filter = directory_filter.replace("\n", " ")
